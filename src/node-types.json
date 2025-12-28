@@ -1,0 +1,104 @@
+[
+  {
+    "type": "alias",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "grammar_rule",
+    "named": true,
+    "fields": {
+      "alias": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "alias",
+            "named": true
+          }
+        ]
+      },
+      "rule_name": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "multiterminal",
+            "named": true
+          },
+          {
+            "type": "nonterminal",
+            "named": true
+          },
+          {
+            "type": "terminal",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "multiterminal",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "terminal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "source_file",
+    "named": true,
+    "root": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "grammar_rule",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "(",
+    "named": false
+  },
+  {
+    "type": ")",
+    "named": false
+  },
+  {
+    "type": ".",
+    "named": false
+  },
+  {
+    "type": "/",
+    "named": false
+  },
+  {
+    "type": "::=",
+    "named": false
+  },
+  {
+    "type": "nonterminal",
+    "named": true
+  },
+  {
+    "type": "terminal",
+    "named": true
+  },
+  {
+    "type": "|",
+    "named": false
+  }
+]
