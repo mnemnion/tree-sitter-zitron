@@ -23,6 +23,10 @@
         {
           "type": "SYMBOL",
           "name": "directive"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "bad_directive"
         }
       ]
     },
@@ -123,6 +127,35 @@
       ]
     },
     "directive": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_ordinary_directive"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_impl_directive"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_macro_directive"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_arg_directive"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_token_directive"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_token_class_directive"
+        }
+      ]
+    },
+    "bad_directive": {
       "type": "SEQ",
       "members": [
         {
@@ -130,8 +163,13 @@
           "value": "%"
         },
         {
-          "type": "SYMBOL",
-          "name": "directive_name"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          },
+          "named": true,
+          "value": "bad_directive_name"
         },
         {
           "type": "SYMBOL",
@@ -418,6 +456,216 @@
         }
       ]
     },
+    "_ordinary_directive": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "%"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "directive_name"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_directive_defn"
+        }
+      ]
+    },
+    "_impl_directive": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "%"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "STRING",
+            "value": "impl"
+          },
+          "named": true,
+          "value": "impl_name"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "named_action"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "code_block"
+        }
+      ]
+    },
+    "_arg_directive": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "%"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "arg_directive_name"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_directive_defn"
+        }
+      ]
+    },
+    "_token_directive": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "%"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "token_directive_name"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "nonterminal"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "terminal"
+              }
+            ]
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "_token_class_directive": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "%"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "STRING",
+            "value": "token_class"
+          },
+          "named": true,
+          "value": "impl_name"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "nonterminal"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "multiterminal"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "_macro_directive": {
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "%"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "macro_name"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_macro_args"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "_macro_args": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "("
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_macro_element"
+              },
+              {
+                "type": "STRING",
+                "value": ")"
+              }
+            ]
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_macro_element"
+          }
+        ]
+      }
+    },
+    "_macro_element": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "nonterminal"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "terminal"
+        },
+        {
+          "type": "STRING",
+          "value": "&&"
+        },
+        {
+          "type": "STRING",
+          "value": "||"
+        },
+        {
+          "type": "STRING",
+          "value": "!"
+        }
+      ]
+    },
     "nonterminal": {
       "type": "PATTERN",
       "value": "[a-z][a-zA-Z0-9_]*"
@@ -474,7 +722,7 @@
     },
     "word": {
       "type": "PATTERN",
-      "value": "[a-z]+"
+      "value": "[a-z_]+"
     },
     "directive_name": {
       "type": "CHOICE",
@@ -489,19 +737,7 @@
         },
         {
           "type": "STRING",
-          "value": "impl"
-        },
-        {
-          "type": "STRING",
           "value": "code"
-        },
-        {
-          "type": "STRING",
-          "value": "token_destructor"
-        },
-        {
-          "type": "STRING",
-          "value": "default_destructor"
         },
         {
           "type": "STRING",
@@ -561,6 +797,36 @@
         },
         {
           "type": "STRING",
+          "value": "wildcard"
+        },
+        {
+          "type": "STRING",
+          "value": "token_destructor"
+        },
+        {
+          "type": "STRING",
+          "value": "default_destructor"
+        }
+      ]
+    },
+    "arg_directive_name": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "type"
+        },
+        {
+          "type": "STRING",
+          "value": "destructor"
+        }
+      ]
+    },
+    "token_directive_name": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
           "value": "left"
         },
         {
@@ -573,27 +839,36 @@
         },
         {
           "type": "STRING",
-          "value": "destructor"
-        },
-        {
-          "type": "STRING",
-          "value": "type"
-        },
-        {
-          "type": "STRING",
-          "value": "fallback"
-        },
-        {
-          "type": "STRING",
           "value": "token"
         },
         {
           "type": "STRING",
-          "value": "wildcard"
+          "value": "fallback"
+        }
+      ]
+    },
+    "macro_name": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "if"
         },
         {
           "type": "STRING",
-          "value": "token_class"
+          "value": "ifdef"
+        },
+        {
+          "type": "STRING",
+          "value": "ifndef"
+        },
+        {
+          "type": "STRING",
+          "value": "else"
+        },
+        {
+          "type": "STRING",
+          "value": "endif"
         }
       ]
     },
@@ -660,6 +935,10 @@
     {
       "type": "SYMBOL",
       "name": "zig_code"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "spurious"
     }
   ],
   "inline": [],

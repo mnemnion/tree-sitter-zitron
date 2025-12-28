@@ -12,13 +12,14 @@ export default grammar({
 
   extras: ($) => [/\s|\\\r?\n/, $.comment],
 
-  externals: ($) => [$.zig_code],
+  externals: ($) => [$.zig_code, $.spurious],
 
   rules: {
     // TODO: add the actual grammar rules
     source_file: ($) => repeat($._declaration),
 
-    _declaration: ($) => choice($.grammar_rule, $.ditto_rule, $.directive),
+    _declaration: ($) =>
+      choice($.grammar_rule, $.ditto_rule, $.directive, $.bad_directive),
 
     grammar_rule: ($) =>
       seq(
@@ -38,7 +39,18 @@ export default grammar({
         optional($._action),
       ),
 
-    directive: ($) => seq("%", $.directive_name, $._directive_defn),
+    directive: ($) =>
+      choice(
+        $._ordinary_directive,
+        $._impl_directive,
+        $._macro_directive,
+        $._arg_directive,
+        $._token_directive,
+        $._token_class_directive,
+      ),
+
+    bad_directive: ($) =>
+      seq("%", alias($.identifier, $.bad_directive_name), $._directive_defn),
 
     _production: ($) =>
       choice(
@@ -94,6 +106,39 @@ export default grammar({
         ")",
       ),
 
+    _ordinary_directive: ($) => seq("%", $.directive_name, $._directive_defn),
+
+    _impl_directive: ($) =>
+      seq("%", alias("impl", $.impl_name), $.named_action, $.code_block),
+
+    _arg_directive: ($) =>
+      seq("%", $.arg_directive_name, $.identifier, $._directive_defn),
+
+    _token_directive: ($) =>
+      seq(
+        "%",
+        $.token_directive_name,
+        repeat(choice($.nonterminal, $.terminal)),
+        ".",
+      ),
+
+    _token_class_directive: ($) =>
+      seq(
+        "%",
+        alias("token_class", $.impl_name),
+        $.nonterminal,
+        $.multiterminal,
+        ".",
+      ),
+
+    _macro_directive: ($) =>
+      prec.left(seq("%", $.macro_name, optional($._macro_args))),
+
+    _macro_args: ($) =>
+      repeat1(choice(seq("(", $._macro_element, ")"), $._macro_element)),
+
+    _macro_element: ($) => choice($.nonterminal, $.terminal, "&&", "||", "!"),
+
     nonterminal: ($) => /[a-z][a-zA-Z0-9_]*/,
 
     terminal: ($) => /[A-Z][a-zA-Z0-9_]*/,
@@ -107,16 +152,13 @@ export default grammar({
 
     action_name: ($) => /@[a-z][a-zA-Z0-9_]*/,
 
-    word: ($) => /[a-z]+/,
+    word: ($) => /[a-z_]+/,
 
     directive_name: ($) =>
       choice(
         "name",
         "include",
-        "impl",
         "code",
-        "token_destructor",
-        "default_destructor",
         "token_enum",
         "token_enum_integer",
         "trace_writer",
@@ -131,16 +173,17 @@ export default grammar({
         "default_type",
         "stack_size",
         "start_symbol",
-        "left",
-        "right",
-        "nonassoc",
-        "destructor",
-        "type",
-        "fallback",
-        "token",
         "wildcard",
-        "token_class",
+        "token_destructor",
+        "default_destructor",
       ),
+
+    arg_directive_name: ($) => choice("type", "destructor"),
+
+    token_directive_name: ($) =>
+      choice("left", "right", "nonassoc", "token", "fallback"),
+
+    macro_name: ($) => choice("if", "ifdef", "ifndef", "else", "endif"),
 
     string: ($) => /"[^\"]*"/,
 

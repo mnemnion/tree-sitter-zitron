@@ -1,5 +1,46 @@
 [
   {
+    "type": "arg_directive_name",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "bad_directive",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "bad_directive_name",
+          "named": true
+        },
+        {
+          "type": "code_block",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "bad_directive_name",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "code_block",
     "named": true,
     "fields": {},
@@ -23,6 +64,10 @@
       "required": true,
       "types": [
         {
+          "type": "arg_directive_name",
+          "named": true
+        },
+        {
           "type": "code_block",
           "named": true
         },
@@ -35,11 +80,39 @@
           "named": true
         },
         {
+          "type": "impl_name",
+          "named": true
+        },
+        {
+          "type": "macro_name",
+          "named": true
+        },
+        {
+          "type": "multiterminal",
+          "named": true
+        },
+        {
+          "type": "named_action",
+          "named": true
+        },
+        {
+          "type": "nonterminal",
+          "named": true
+        },
+        {
           "type": "number",
           "named": true
         },
         {
           "type": "string",
+          "named": true
+        },
+        {
+          "type": "terminal",
+          "named": true
+        },
+        {
+          "type": "token_directive_name",
           "named": true
         }
       ]
@@ -168,6 +241,11 @@
     "fields": {}
   },
   {
+    "type": "macro_name",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "multiterminal",
     "named": true,
     "fields": {},
@@ -216,6 +294,10 @@
       "required": false,
       "types": [
         {
+          "type": "bad_directive",
+          "named": true
+        },
+        {
           "type": "directive",
           "named": true
         },
@@ -231,7 +313,20 @@
     }
   },
   {
+    "type": "token_directive_name",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "!",
+    "named": false
+  },
+  {
     "type": "%",
+    "named": false
+  },
+  {
+    "type": "&&",
     "named": false
   },
   {
@@ -292,6 +387,14 @@
     "named": false
   },
   {
+    "type": "else",
+    "named": false
+  },
+  {
+    "type": "endif",
+    "named": false
+  },
+  {
     "type": "extra_argument",
     "named": false
   },
@@ -304,8 +407,20 @@
     "named": false
   },
   {
-    "type": "impl",
+    "type": "if",
     "named": false
+  },
+  {
+    "type": "ifdef",
+    "named": false
+  },
+  {
+    "type": "ifndef",
+    "named": false
+  },
+  {
+    "type": "impl_name",
+    "named": true
   },
   {
     "type": "include",
@@ -376,10 +491,6 @@
     "named": false
   },
   {
-    "type": "token_class",
-    "named": false
-  },
-  {
     "type": "token_destructor",
     "named": false
   },
@@ -417,6 +528,10 @@
   },
   {
     "type": "|",
+    "named": false
+  },
+  {
+    "type": "||",
     "named": false
   },
   {
