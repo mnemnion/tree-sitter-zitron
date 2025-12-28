@@ -1,0 +1,42 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
+  "grammars": [
+    {
+      "name": "zitron",
+      "camelcase": "Zitron",
+      "title": "Zitron Parser",
+      "scope": "source.zitron",
+      "file-types": [
+        "zy"
+      ],
+      "injection-regex": "^zitron$",
+      "class-name": "TreeSitterZitron"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "A Tree-sitter grammar for the Zitron grammar dialect",
+    "authors": [
+      {
+        "name": "Sam Atman",
+        "email": "atmanistan@gmail.com",
+        "url": "https://github.com/mnemnion"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/mnemnion/tree-sitter-zitron",
+      "funding": ""
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": true,
+    "java": false,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true,
+    "zig": true
+  }
+}
