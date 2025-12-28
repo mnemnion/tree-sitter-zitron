@@ -1,7 +1,8 @@
 #include "tree_sitter/parser.h"
 
 enum TokenType {
-    ZIG_BLOCK
+    ZIG_BLOCK,
+    SPURIOUS
 };
 
 void * tree_sitter_zitron_external_scanner_create() {
@@ -35,6 +36,7 @@ bool tree_sitter_zitron_external_scanner_scan(
   TSLexer *lexer,
   const bool *valid_symbols
 ) {
+    if (valid_symbols[SPURIOUS]) return false;
     if (!valid_symbols[ZIG_BLOCK]) return false;
     lexer->result_symbol = ZIG_BLOCK;
     int depth = 0;
