@@ -2,6 +2,52 @@
   {
     "type": "code_block",
     "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "zig_code",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "directive",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "code_block",
+          "named": true
+        },
+        {
+          "type": "directive_name",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "directive_name",
+    "named": true,
     "fields": {}
   },
   {
@@ -117,6 +163,11 @@
     }
   },
   {
+    "type": "identifier",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "multiterminal",
     "named": true,
     "fields": {},
@@ -151,6 +202,11 @@
     }
   },
   {
+    "type": "rule_alias",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "source_file",
     "named": true,
     "root": true,
@@ -159,6 +215,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "directive",
+          "named": true
+        },
         {
           "type": "ditto_rule",
           "named": true
@@ -169,6 +229,10 @@
         }
       ]
     }
+  },
+  {
+    "type": "%",
+    "named": false
   },
   {
     "type": "(",
@@ -207,20 +271,144 @@
     "named": true
   },
   {
+    "type": "code",
+    "named": false
+  },
+  {
     "type": "comment",
     "named": true,
     "extra": true
+  },
+  {
+    "type": "default_destructor",
+    "named": false
+  },
+  {
+    "type": "default_type",
+    "named": false
+  },
+  {
+    "type": "destructor",
+    "named": false
+  },
+  {
+    "type": "extra_argument",
+    "named": false
+  },
+  {
+    "type": "extra_context",
+    "named": false
+  },
+  {
+    "type": "fallback",
+    "named": false
+  },
+  {
+    "type": "impl",
+    "named": false
+  },
+  {
+    "type": "include",
+    "named": false
+  },
+  {
+    "type": "left",
+    "named": false
+  },
+  {
+    "type": "name",
+    "named": false
+  },
+  {
+    "type": "nonassoc",
+    "named": false
   },
   {
     "type": "nonterminal",
     "named": true
   },
   {
-    "type": "rule_alias",
+    "type": "number",
     "named": true
   },
   {
+    "type": "parse_accept",
+    "named": false
+  },
+  {
+    "type": "parse_error_type",
+    "named": false
+  },
+  {
+    "type": "parse_failure",
+    "named": false
+  },
+  {
+    "type": "right",
+    "named": false
+  },
+  {
+    "type": "stack_overflow",
+    "named": false
+  },
+  {
+    "type": "stack_size",
+    "named": false
+  },
+  {
+    "type": "start_symbol",
+    "named": false
+  },
+  {
+    "type": "string",
+    "named": true
+  },
+  {
+    "type": "syntax_error",
+    "named": false
+  },
+  {
     "type": "terminal",
+    "named": true
+  },
+  {
+    "type": "token",
+    "named": false
+  },
+  {
+    "type": "token_class",
+    "named": false
+  },
+  {
+    "type": "token_destructor",
+    "named": false
+  },
+  {
+    "type": "token_enum",
+    "named": false
+  },
+  {
+    "type": "token_enum_integer",
+    "named": false
+  },
+  {
+    "type": "token_type",
+    "named": false
+  },
+  {
+    "type": "trace_writer",
+    "named": false
+  },
+  {
+    "type": "type",
+    "named": false
+  },
+  {
+    "type": "wildcard",
+    "named": false
+  },
+  {
+    "type": "zig_code",
     "named": true
   },
   {

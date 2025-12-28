@@ -19,6 +19,10 @@
         {
           "type": "SYMBOL",
           "name": "ditto_rule"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "directive"
         }
       ]
     },
@@ -118,6 +122,40 @@
         }
       ]
     },
+    "directive": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "%"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "directive_name"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_directive_defn"
+        }
+      ]
+    },
+    "_production": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_nonterminal_m_alias"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_terminal_m_alias"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_multiterminal_m_alias"
+        }
+      ]
+    },
     "_nonterminal_m_alias": {
       "type": "SEQ",
       "members": [
@@ -144,23 +182,6 @@
               }
             ]
           }
-        }
-      ]
-    },
-    "_production": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_nonterminal_m_alias"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_terminal_m_alias"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_multiterminal_m_alias"
         }
       ]
     },
@@ -196,6 +217,27 @@
           }
         ]
       }
+    },
+    "_directive_defn": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "code_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "string"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "number"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        }
+      ]
     },
     "_multiterminal_m_alias": {
       "type": "SEQ",
@@ -264,8 +306,8 @@
           "value": "{"
         },
         {
-          "type": "PATTERN",
-          "value": "[^}]*"
+          "type": "SYMBOL",
+          "name": "zig_code"
         },
         {
           "type": "STRING",
@@ -422,9 +464,146 @@
       "type": "PATTERN",
       "value": "[A-Za-z][A-Za-z0-9_]*"
     },
+    "identifier": {
+      "type": "PATTERN",
+      "value": "[A-Za-z][A-Za-z0-9_]*"
+    },
     "action_name": {
       "type": "PATTERN",
       "value": "@[a-z][a-zA-Z0-9_]*"
+    },
+    "word": {
+      "type": "PATTERN",
+      "value": "[a-z]+"
+    },
+    "directive_name": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "name"
+        },
+        {
+          "type": "STRING",
+          "value": "include"
+        },
+        {
+          "type": "STRING",
+          "value": "impl"
+        },
+        {
+          "type": "STRING",
+          "value": "code"
+        },
+        {
+          "type": "STRING",
+          "value": "token_destructor"
+        },
+        {
+          "type": "STRING",
+          "value": "default_destructor"
+        },
+        {
+          "type": "STRING",
+          "value": "token_enum"
+        },
+        {
+          "type": "STRING",
+          "value": "token_enum_integer"
+        },
+        {
+          "type": "STRING",
+          "value": "trace_writer"
+        },
+        {
+          "type": "STRING",
+          "value": "syntax_error"
+        },
+        {
+          "type": "STRING",
+          "value": "parse_accept"
+        },
+        {
+          "type": "STRING",
+          "value": "parse_error_type"
+        },
+        {
+          "type": "STRING",
+          "value": "parse_failure"
+        },
+        {
+          "type": "STRING",
+          "value": "stack_overflow"
+        },
+        {
+          "type": "STRING",
+          "value": "extra_argument"
+        },
+        {
+          "type": "STRING",
+          "value": "extra_context"
+        },
+        {
+          "type": "STRING",
+          "value": "token_type"
+        },
+        {
+          "type": "STRING",
+          "value": "default_type"
+        },
+        {
+          "type": "STRING",
+          "value": "stack_size"
+        },
+        {
+          "type": "STRING",
+          "value": "start_symbol"
+        },
+        {
+          "type": "STRING",
+          "value": "left"
+        },
+        {
+          "type": "STRING",
+          "value": "right"
+        },
+        {
+          "type": "STRING",
+          "value": "nonassoc"
+        },
+        {
+          "type": "STRING",
+          "value": "destructor"
+        },
+        {
+          "type": "STRING",
+          "value": "type"
+        },
+        {
+          "type": "STRING",
+          "value": "fallback"
+        },
+        {
+          "type": "STRING",
+          "value": "token"
+        },
+        {
+          "type": "STRING",
+          "value": "wildcard"
+        },
+        {
+          "type": "STRING",
+          "value": "token_class"
+        }
+      ]
+    },
+    "string": {
+      "type": "PATTERN",
+      "value": "\"[^\\\"]*\""
+    },
+    "number": {
+      "type": "PATTERN",
+      "value": "\\d+"
     },
     "comment": {
       "type": "TOKEN",
@@ -477,7 +656,12 @@
   ],
   "conflicts": [],
   "precedences": [],
-  "externals": [],
+  "externals": [
+    {
+      "type": "SYMBOL",
+      "name": "zig_code"
+    }
+  ],
   "inline": [],
   "supertypes": [],
   "reserved": {}

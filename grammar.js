@@ -12,16 +12,13 @@ export default grammar({
 
   extras: ($) => [/\s|\\\r?\n/, $.comment],
 
+  externals: ($) => [$.zig_code],
+
   rules: {
     // TODO: add the actual grammar rules
     source_file: ($) => repeat($._declaration),
 
-    _declaration: ($) =>
-      choice(
-        $.grammar_rule,
-        $.ditto_rule,
-        // $.directive
-      ),
+    _declaration: ($) => choice($.grammar_rule, $.ditto_rule, $.directive),
 
     grammar_rule: ($) =>
       seq(
@@ -41,17 +38,19 @@ export default grammar({
         optional($._action),
       ),
 
-    _nonterminal_m_alias: ($) =>
-      seq(
-        field("rule_name", $.nonterminal),
-        field("alias", optional($._alias_paren)),
-      ),
+    directive: ($) => seq("%", $.directive_name, $._directive_defn),
 
     _production: ($) =>
       choice(
         $._nonterminal_m_alias,
         $._terminal_m_alias,
         $._multiterminal_m_alias,
+      ),
+
+    _nonterminal_m_alias: ($) =>
+      seq(
+        field("rule_name", $.nonterminal),
+        field("alias", optional($._alias_paren)),
       ),
 
     _terminal_m_alias: ($) =>
@@ -63,6 +62,9 @@ export default grammar({
         ),
       ),
 
+    _directive_defn: ($) =>
+      choice($.code_block, $.string, $.number, $.identifier),
+
     _multiterminal_m_alias: ($) =>
       seq(
         field("rule_name", $.multiterminal),
@@ -73,7 +75,7 @@ export default grammar({
 
     _action: ($) => choice($.code_block, $.named_action),
 
-    code_block: ($) => seq("{", /[^}]*/, "}"),
+    code_block: ($) => seq("{", $.zig_code, "}"),
 
     named_action: ($) => seq($.action_name, $._act_aliases),
 
@@ -101,7 +103,48 @@ export default grammar({
 
     rule_alias: ($) => /[A-Za-z][A-Za-z0-9_]*/,
 
+    identifier: ($) => /[A-Za-z][A-Za-z0-9_]*/,
+
     action_name: ($) => /@[a-z][a-zA-Z0-9_]*/,
+
+    word: ($) => /[a-z]+/,
+
+    directive_name: ($) =>
+      choice(
+        "name",
+        "include",
+        "impl",
+        "code",
+        "token_destructor",
+        "default_destructor",
+        "token_enum",
+        "token_enum_integer",
+        "trace_writer",
+        "syntax_error",
+        "parse_accept",
+        "parse_error_type",
+        "parse_failure",
+        "stack_overflow",
+        "extra_argument",
+        "extra_context",
+        "token_type",
+        "default_type",
+        "stack_size",
+        "start_symbol",
+        "left",
+        "right",
+        "nonassoc",
+        "destructor",
+        "type",
+        "fallback",
+        "token",
+        "wildcard",
+        "token_class",
+      ),
+
+    string: ($) => /"[^\"]*"/,
+
+    number: ($) => /\d+/,
 
     comment: (_) =>
       token(
