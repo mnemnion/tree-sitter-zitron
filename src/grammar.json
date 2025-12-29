@@ -645,12 +645,22 @@
       "type": "CHOICE",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "nonterminal"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "nonterminal"
+          },
+          "named": true,
+          "value": "macro_nonterminal"
         },
         {
-          "type": "SYMBOL",
-          "name": "terminal"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "terminal"
+          },
+          "named": true,
+          "value": "macro_terminal"
         },
         {
           "type": "STRING",

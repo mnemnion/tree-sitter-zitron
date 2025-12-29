@@ -137,7 +137,14 @@ export default grammar({
     _macro_args: ($) =>
       repeat1(choice(seq("(", $._macro_element, ")"), $._macro_element)),
 
-    _macro_element: ($) => choice($.nonterminal, $.terminal, "&&", "||", "!"),
+    _macro_element: ($) =>
+      choice(
+        alias($.nonterminal, $.macro_nonterminal),
+        alias($.terminal, $.macro_terminal),
+        "&&",
+        "||",
+        "!",
+      ),
 
     nonterminal: ($) => /[a-z][a-zA-Z0-9_]*/,
 

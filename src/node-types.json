@@ -88,6 +88,14 @@
           "named": true
         },
         {
+          "type": "macro_nonterminal",
+          "named": true
+        },
+        {
+          "type": "macro_terminal",
+          "named": true
+        },
+        {
           "type": "multiterminal",
           "named": true
         },
@@ -429,6 +437,14 @@
   {
     "type": "left",
     "named": false
+  },
+  {
+    "type": "macro_nonterminal",
+    "named": true
+  },
+  {
+    "type": "macro_terminal",
+    "named": true
   },
   {
     "type": "name",
