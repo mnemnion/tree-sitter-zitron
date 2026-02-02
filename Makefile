@@ -1,6 +1,8 @@
 LANGUAGE_NAME := tree-sitter-zitron
 HOMEPAGE_URL := https://github.com/mnemnion/tree-sitter-zitron
 VERSION := 0.1.0
+LANG=zitron
+NVIM_PARSER=$(HOME)/.config/nvim/parser/$(LANG).so
 
 # repository
 SRC_DIR := src
@@ -108,6 +110,10 @@ uninstall:
 
 clean:
 	$(RM) $(OBJS) $(LANGUAGE_NAME).pc lib$(LANGUAGE_NAME).a lib$(LANGUAGE_NAME).$(SOEXT) lib$(LANGUAGE_NAME).dll.a
+
+nvim:
+	tree-sitter generate
+	tree-sitter build -o $(NVIM_PARSER)
 
 test:
 	$(TS) test

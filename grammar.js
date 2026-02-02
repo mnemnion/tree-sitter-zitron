@@ -15,7 +15,6 @@ export default grammar({
   externals: ($) => [$.zig_code, $.spurious],
 
   rules: {
-    // TODO: add the actual grammar rules
     source_file: ($) => repeat($._declaration),
 
     _declaration: ($) =>
@@ -23,21 +22,15 @@ export default grammar({
 
     grammar_rule: ($) =>
       seq(
-        $._nonterminal_m_alias,
+        field("rule_def", $.lhs),
         "::=",
-        optional(repeat($._production)),
+        optional($.rhs),
         ".",
         optional($._action),
       ),
 
     ditto_rule: ($) =>
-      seq(
-        "``",
-        optional("::="),
-        optional(repeat($._production)),
-        ".",
-        optional($._action),
-      ),
+      seq("``", optional("::="), optional($.rhs), ".", optional($._action)),
 
     directive: ($) =>
       choice(
@@ -59,14 +52,19 @@ export default grammar({
         $._multiterminal_m_alias,
       ),
 
+    lhs: ($) => $._nonterminal_m_alias,
+
+    rhs: ($) => repeat1($._production),
+
     _nonterminal_m_alias: ($) =>
       seq(
+        // match here
         field("rule_name", $.nonterminal),
         field("alias", optional($._alias_paren)),
       ),
 
     _terminal_m_alias: ($) =>
-      prec(
+      prec.left(
         2,
         seq(
           field("rule_name", $.terminal),
@@ -85,7 +83,7 @@ export default grammar({
 
     _alias_paren: ($) => seq("(", $.rule_alias, ")"),
 
-    _action: ($) => choice($.code_block, $.named_action),
+    _action: ($) => choice($.code_block, field("action_def", $.named_action)),
 
     code_block: ($) => seq("{", $.zig_code, "}"),
 
@@ -109,7 +107,12 @@ export default grammar({
     _ordinary_directive: ($) => seq("%", $.directive_name, $._directive_defn),
 
     _impl_directive: ($) =>
-      seq("%", alias("impl", $.impl_name), $.named_action, $.code_block),
+      seq(
+        "%",
+        alias("impl", $.impl_name),
+        field("action_impl", $.named_action),
+        $.code_block,
+      ),
 
     _arg_directive: ($) =>
       seq("%", $.arg_directive_name, $.identifier, $._directive_defn),
@@ -151,7 +154,7 @@ export default grammar({
     terminal: ($) => /[A-Z][a-zA-Z0-9_]*/,
 
     multiterminal: ($) =>
-      seq($.terminal, repeat(seq(choice("|", "/"), $.terminal))),
+      prec.left(3, seq($.terminal, repeat(seq(choice("|", "/"), $.terminal)))),
 
     rule_alias: ($) => /[A-Za-z][A-Za-z0-9_]*/,
 

@@ -58,7 +58,18 @@
   {
     "type": "directive",
     "named": true,
-    "fields": {},
+    "fields": {
+      "action_impl": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "named_action",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
@@ -100,10 +111,6 @@
           "named": true
         },
         {
-          "type": "named_action",
-          "named": true
-        },
-        {
           "type": "nonterminal",
           "named": true
         },
@@ -135,45 +142,19 @@
     "type": "ditto_rule",
     "named": true,
     "fields": {
-      "alias": {
-        "multiple": true,
+      "action_def": {
+        "multiple": false,
         "required": false,
         "types": [
           {
-            "type": "(",
-            "named": false
-          },
-          {
-            "type": ")",
-            "named": false
-          },
-          {
-            "type": "rule_alias",
-            "named": true
-          }
-        ]
-      },
-      "rule_name": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "multiterminal",
-            "named": true
-          },
-          {
-            "type": "nonterminal",
-            "named": true
-          },
-          {
-            "type": "terminal",
+            "type": "named_action",
             "named": true
           }
         ]
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
         {
@@ -181,7 +162,7 @@
           "named": true
         },
         {
-          "type": "named_action",
+          "type": "rhs",
           "named": true
         }
       ]
@@ -189,6 +170,51 @@
   },
   {
     "type": "grammar_rule",
+    "named": true,
+    "fields": {
+      "action_def": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "named_action",
+            "named": true
+          }
+        ]
+      },
+      "rule_def": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "lhs",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "code_block",
+          "named": true
+        },
+        {
+          "type": "rhs",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "identifier",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "lhs",
     "named": true,
     "fields": {
       "alias": {
@@ -210,43 +236,16 @@
         ]
       },
       "rule_name": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "multiterminal",
-            "named": true
-          },
-          {
             "type": "nonterminal",
-            "named": true
-          },
-          {
-            "type": "terminal",
             "named": true
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "code_block",
-          "named": true
-        },
-        {
-          "type": "named_action",
-          "named": true
-        }
-      ]
     }
-  },
-  {
-    "type": "identifier",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "macro_name",
@@ -285,6 +284,48 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "rhs",
+    "named": true,
+    "fields": {
+      "alias": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "rule_alias",
+            "named": true
+          }
+        ]
+      },
+      "rule_name": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "multiterminal",
+            "named": true
+          },
+          {
+            "type": "nonterminal",
+            "named": true
+          },
+          {
+            "type": "terminal",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {

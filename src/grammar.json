@@ -34,8 +34,12 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "_nonterminal_m_alias"
+          "type": "FIELD",
+          "name": "rule_def",
+          "content": {
+            "type": "SYMBOL",
+            "name": "lhs"
+          }
         },
         {
           "type": "STRING",
@@ -45,11 +49,8 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "REPEAT",
-              "content": {
-                "type": "SYMBOL",
-                "name": "_production"
-              }
+              "type": "SYMBOL",
+              "name": "rhs"
             },
             {
               "type": "BLANK"
@@ -97,11 +98,8 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "REPEAT",
-              "content": {
-                "type": "SYMBOL",
-                "name": "_production"
-              }
+              "type": "SYMBOL",
+              "name": "rhs"
             },
             {
               "type": "BLANK"
@@ -194,6 +192,17 @@
         }
       ]
     },
+    "lhs": {
+      "type": "SYMBOL",
+      "name": "_nonterminal_m_alias"
+    },
+    "rhs": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "SYMBOL",
+        "name": "_production"
+      }
+    },
     "_nonterminal_m_alias": {
       "type": "SEQ",
       "members": [
@@ -224,7 +233,7 @@
       ]
     },
     "_terminal_m_alias": {
-      "type": "PREC",
+      "type": "PREC_LEFT",
       "value": 2,
       "content": {
         "type": "SEQ",
@@ -331,8 +340,12 @@
           "name": "code_block"
         },
         {
-          "type": "SYMBOL",
-          "name": "named_action"
+          "type": "FIELD",
+          "name": "action_def",
+          "content": {
+            "type": "SYMBOL",
+            "name": "named_action"
+          }
         }
       ]
     },
@@ -490,8 +503,12 @@
           "value": "impl_name"
         },
         {
-          "type": "SYMBOL",
-          "name": "named_action"
+          "type": "FIELD",
+          "name": "action_impl",
+          "content": {
+            "type": "SYMBOL",
+            "name": "named_action"
+          }
         },
         {
           "type": "SYMBOL",
@@ -685,38 +702,42 @@
       "value": "[A-Z][a-zA-Z0-9_]*"
     },
     "multiterminal": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "terminal"
-        },
-        {
-          "type": "REPEAT",
-          "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": "|"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "/"
-                  }
-                ]
-              },
-              {
-                "type": "SYMBOL",
-                "name": "terminal"
-              }
-            ]
+      "type": "PREC_LEFT",
+      "value": 3,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "terminal"
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "|"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "/"
+                    }
+                  ]
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "terminal"
+                }
+              ]
+            }
           }
-        }
-      ]
+        ]
+      }
     },
     "rule_alias": {
       "type": "PATTERN",

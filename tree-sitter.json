@@ -6,11 +6,10 @@
       "camelcase": "Zitron",
       "title": "Zitron Parser",
       "scope": "source.zitron",
-      "file-types": [
-        "zy"
-      ],
+      "file-types": ["zy"],
       "injection-regex": "^zitron$",
-      "class-name": "TreeSitterZitron"
+      "class-name": "TreeSitterZitron",
+      "tags": "queries/tags.scm"
     }
   ],
   "metadata": {
@@ -40,3 +39,4 @@
     "zig": true
   }
 }
+
