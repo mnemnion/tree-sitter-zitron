@@ -1,6 +1,6 @@
 LANGUAGE_NAME := tree-sitter-zitron
 HOMEPAGE_URL := https://github.com/mnemnion/tree-sitter-zitron
-VERSION := 0.1.0
+VERSION := 0.1.2
 LANG=zitron
 NVIM_PARSER=$(HOME)/.config/nvim/parser/$(LANG).so
 
@@ -118,4 +118,4 @@ nvim:
 test:
 	$(TS) test
 
-.PHONY: all install uninstall clean test
+.PHONY: all install uninstall clean test nvim

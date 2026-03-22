@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.13)
 
 project(tree-sitter-zitron
-        VERSION "0.1.0"
+        VERSION "0.1.2"
         DESCRIPTION "A Tree-sitter grammar for the Zitron grammar dialect"
         HOMEPAGE_URL "https://github.com/mnemnion/tree-sitter-zitron"
         LANGUAGES C)

@@ -12,6 +12,8 @@ export default grammar({
 
   extras: ($) => [/\s|\\\r?\n/, $.comment],
 
+  // We only have one external token, but the fake one prevents
+  // it from being used in error recovery.
   externals: ($) => [$.zig_code, $.spurious],
 
   rules: {
@@ -58,7 +60,6 @@ export default grammar({
 
     _nonterminal_m_alias: ($) =>
       seq(
-        // match here
         field("rule_name", $.nonterminal),
         field("alias", optional($._alias_paren)),
       ),

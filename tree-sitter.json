@@ -13,7 +13,7 @@
     }
   ],
   "metadata": {
-    "version": "0.1.0",
+    "version": "0.1.2",
     "license": "MIT",
     "description": "A Tree-sitter grammar for the Zitron grammar dialect",
     "authors": [
@@ -39,4 +39,3 @@
     "zig": true
   }
 }
-

@@ -1,0 +1,237 @@
+==================
+Simple Grammar Rule
+==================
+
+edn(E) ::= forms(Fs).  @edn_forms(E;Fs)
+
+---
+
+(source_file
+  (grammar_rule
+    (lhs
+      (nonterminal)
+      (rule_alias))
+    (rhs
+      (nonterminal)
+      (rule_alias))
+    (named_action
+      (action_name)
+      (rule_alias)
+      (rule_alias))))
+
+==================
+Recursive Grammar Rule
+==================
+
+forms(Fs) ::= forms(Fs) form(F).  @forms_append(Fs; Fs, F)
+
+---
+
+(source_file
+  (grammar_rule
+    (lhs
+      (nonterminal)
+      (rule_alias))
+    (rhs
+      (nonterminal)
+      (rule_alias)
+      (nonterminal)
+      (rule_alias))
+    (named_action
+      (action_name)
+      (rule_alias)
+      (rule_alias)
+      (rule_alias))))
+
+==================
+Multi Line Ditto Rule
+==================
+
+form(F) ::= list(L).     @f_list(F;L)
+  ``        map(M).      @f_map(F;M)
+  ``        vector(V).   @f_vector(F;V)
+  ``        atom(A).     @f_atom(F;A)
+
+---
+
+(source_file
+  (grammar_rule
+    (lhs
+      (nonterminal)
+      (rule_alias))
+    (rhs
+      (nonterminal)
+      (rule_alias))
+    (named_action
+      (action_name)
+      (rule_alias)
+      (rule_alias)))
+  (ditto_rule
+    (rhs
+      (nonterminal)
+      (rule_alias))
+    (named_action
+      (action_name)
+      (rule_alias)
+      (rule_alias)))
+  (ditto_rule
+    (rhs
+      (nonterminal)
+      (rule_alias))
+    (named_action
+      (action_name)
+      (rule_alias)
+      (rule_alias)))
+  (ditto_rule
+    (rhs
+      (nonterminal)
+      (rule_alias))
+    (named_action
+      (action_name)
+      (rule_alias)
+      (rule_alias))))
+
+==================
+Aliased Productions
+==================
+
+atom(A) ::= SYMBOL(S).      @atom_symbol(A;S)
+ ``         NUMBER(N).      @atom_number(A;N)
+ ``         STRING(S).      @atom_string(A;S)
+
+---
+
+(source_file
+  (grammar_rule
+    (lhs
+      (nonterminal)
+      (rule_alias))
+    (rhs
+      (multiterminal
+        (terminal))
+      (rule_alias))
+    (named_action
+      (action_name)
+      (rule_alias)
+      (rule_alias)))
+  (ditto_rule
+    (rhs
+      (multiterminal
+        (terminal))
+      (rule_alias))
+    (named_action
+      (action_name)
+      (rule_alias)
+      (rule_alias)))
+  (ditto_rule
+    (rhs
+      (multiterminal
+        (terminal))
+      (rule_alias))
+    (named_action
+      (action_name)
+      (rule_alias)
+      (rule_alias))))
+
+==================
+Multiterminal Production
+==================
+
+atom(A) ::= TRUE|FALSE(B).  @atom_boolean(A;B)
+
+---
+
+(source_file
+  (grammar_rule
+    (lhs
+      (nonterminal)
+      (rule_alias))
+    (rhs
+      (multiterminal
+        (terminal)
+        (terminal))
+      (rule_alias))
+    (named_action
+      (action_name)
+      (rule_alias)
+      (rule_alias))))
+
+==================
+Inline Code Action
+==================
+
+calc ::= expr(A). { answer = A; }
+
+---
+
+(source_file
+  (grammar_rule
+    (lhs
+      (nonterminal))
+    (rhs
+      (nonterminal)
+      (rule_alias))
+    (code_block
+      (zig_code))))
+
+==================
+Inline Code Action With Multiterminal Alias
+==================
+
+expr(A) ::= expr(B) PLUS|FOO(O) term(C). {
+    _ = .{"has C in it", @O};
+    A = B + C;
+}
+
+---
+
+(source_file
+  (grammar_rule
+    (lhs
+      (nonterminal)
+      (rule_alias))
+    (rhs
+      (nonterminal)
+      (rule_alias)
+      (multiterminal
+        (terminal)
+        (terminal))
+      (rule_alias)
+      (nonterminal)
+      (rule_alias))
+    (code_block
+      (zig_code))))
+
+==================
+Ditto Rule With Inline Code Actions
+==================
+
+term(A) ::= term(B) TIMES factor(C).  { A = B * C; }
+   ``       term(B) DIVIDE factor(C). { A = B / C; }
+
+---
+
+(source_file
+  (grammar_rule
+    (lhs
+      (nonterminal)
+      (rule_alias))
+    (rhs
+      (nonterminal)
+      (rule_alias)
+      (multiterminal
+        (terminal))
+      (nonterminal)
+      (rule_alias))
+    (code_block
+      (zig_code)))
+  (ditto_rule
+    (rhs
+      (nonterminal)
+      (rule_alias)
+      (multiterminal
+        (terminal))
+      (nonterminal)
+      (rule_alias))
+    (code_block
+      (zig_code))))

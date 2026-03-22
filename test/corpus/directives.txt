@@ -1,0 +1,148 @@
+==================
+Include Directive
+==================
+
+%include {
+const Token = tokenize.Token;
+const Tokenizer = tokenize.Tokenizer;
+} /* end include */
+
+---
+
+(source_file
+  (directive
+    (directive_name)
+    (code_block
+      (zig_code)))
+  (comment))
+
+==================
+Conditional Macros
+==================
+
+%ifdef TRACE
+%trace_writer "trace_me"
+%endif
+
+---
+
+(source_file
+  (directive
+    (macro_name)
+    (macro_terminal))
+  (directive
+    (directive_name)
+    (string))
+  (directive
+    (macro_name)))
+
+==================
+Macro Arguments
+==================
+
+%ifdef TRACE && !NO_TRACE
+
+---
+
+(source_file
+  (directive
+    (macro_name)
+    (macro_terminal)
+    (macro_terminal)))
+
+==================
+Type And Destructor Directives
+==================
+
+%type forms {*Forms}
+%destructor forms {
+    for ($$.items) |form| form.deinit(allocator);
+    $$.deinit(allocator);
+    allocator.destroy($$);
+}
+
+---
+
+(source_file
+  (directive
+    (arg_directive_name)
+    (identifier)
+    (code_block
+      (zig_code)))
+  (directive
+    (arg_directive_name)
+    (identifier)
+    (code_block
+      (zig_code))))
+
+==================
+Extra Context Directive
+==================
+
+%extra_context { result: ParseContext }
+
+---
+
+(source_file
+  (directive
+    (directive_name)
+    (code_block
+      (zig_code))))
+
+==================
+String Directives
+==================
+
+%parse_error_type "std.mem.Allocator.Error"
+%token_type "Token"
+
+---
+
+(source_file
+  (directive
+    (directive_name)
+    (string))
+  (directive
+    (directive_name)
+    (string)))
+
+==================
+Arg Directives With Identifier And String
+==================
+
+%type expr f64
+%destructor term "// float, no destructor"
+
+---
+
+(source_file
+  (directive
+    (arg_directive_name)
+    (identifier)
+    (identifier))
+  (directive
+    (arg_directive_name)
+    (identifier)
+    (string)))
+
+==================
+Impl Directive
+==================
+
+%impl @forms_new(Fs; F) {
+    errdefer if (F) |form| form.deinit(allocator);
+    var forms: *Forms = try allocator.create(Forms);
+    forms.* = .empty;
+}
+
+---
+
+(source_file
+  (directive
+    (impl_name)
+    (named_action
+      (action_name)
+      (rule_alias)
+      (rule_alias))
+    (code_block
+      (zig_code))))
