@@ -1,0 +1,4 @@
+%left BAZ STAR.
+// ^ type
+//      ^ constant
+//           ^ constant

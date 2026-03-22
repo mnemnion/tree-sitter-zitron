@@ -1,0 +1,14 @@
+foo ::= bar(B) baz(C). @act(A;B,C)
+// <- definition.class
+//       ^ reference.class
+//              ^ reference.class
+//                      ^ definition.interface
+
+  `` qux(Q). @dit(A;Q)
+//   ^ reference.class
+//            ^ definition.interface
+
+%impl @build(A;B) {
+//      ^ definition.interface
+// TODO
+}

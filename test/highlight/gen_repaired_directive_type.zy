@@ -1,0 +1,2 @@
+%type expr f64
+// ^ type

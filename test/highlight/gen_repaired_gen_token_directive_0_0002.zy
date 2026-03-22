@@ -1,0 +1,2 @@
+%nonassoc STAR SLASH.
+// ^ type

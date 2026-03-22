@@ -1,0 +1,4 @@
+%left BAZ SLASH.
+// ^ type
+//      ^ constant
+//           ^ constant

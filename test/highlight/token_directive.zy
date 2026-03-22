@@ -1,0 +1,5 @@
+%left PLUS BAR.
+// ^ type
+//      ^ constant
+//           ^ constant
+//            ^ punctuation.delimiter

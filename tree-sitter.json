@@ -9,6 +9,7 @@
       "file-types": ["zy"],
       "injection-regex": "^zitron$",
       "class-name": "TreeSitterZitron",
+      "highlights": "queries/highlights.scm",
       "tags": "queries/tags.scm"
     }
   ],

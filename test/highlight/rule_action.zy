@@ -1,0 +1,4 @@
+foo(A) ::= BAR(B). @act(A;B)
+// <- identifier
+//       ^ operator
+//           ^ constant

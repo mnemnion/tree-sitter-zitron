@@ -34,7 +34,7 @@ zig-cache/
 zig-out/
 
 # Samples
-*.zy
+/*.zy
 
 # Example dirs
 /examples/*/
