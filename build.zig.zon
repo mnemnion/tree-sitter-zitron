@@ -2,10 +2,11 @@
     .name = .tree_sitter_zitron,
     .fingerprint = 0xbd3104644ccf0d10,
     .version = "0.1.3",
+    .minimum_zig_version = "0.16.0",
     .dependencies = .{
         .tree_sitter = .{
-            .url = "git+https://github.com/tree-sitter/zig-tree-sitter#b4b72c903e69998fc88e27e154a5e3cc9166551b",
-            .hash = "tree_sitter-0.25.0-8heIf51vAQConvVIgvm-9mVIbqh7yabZYqPXfOpS3YoG",
+            .url = "git+https://github.com/tree-sitter/zig-tree-sitter?ref=v0.26.0#0cf58172e61f6fdd16f681cde42b4acb531a23db",
+            .hash = "tree_sitter-0.26.0-8heIf3CaAQDeVTQc0DMSBhbQAEx5aF-dTen4_LPxMgrv",
             .lazy = true,
         },
     },
