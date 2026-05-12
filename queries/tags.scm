@@ -8,10 +8,10 @@
   action_def: (named_action (action_name) @name)) @definition.interface
 
 (grammar_rule
-  (rhs rule_name: (nonterminal)) @name) @reference.class
+  (rhs rule_name: (nonterminal) @name)) @reference.class
 
 (ditto_rule
-  (rhs rule_name: (nonterminal)) @name) @reference.class
+  (rhs rule_name: (nonterminal) @name)) @reference.class
 
 (directive
   action_impl: (named_action (action_name) @name)) @reference.implementation
