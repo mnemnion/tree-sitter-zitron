@@ -155,7 +155,7 @@ export default grammar({
     terminal: ($) => /[A-Z][a-zA-Z0-9_]*/,
 
     multiterminal: ($) =>
-      prec.left(3, seq($.terminal, repeat(seq(choice("|", "/"), $.terminal)))),
+      prec.left(3, seq($.terminal, repeat1(seq(choice("|", "/"), $.terminal)))),
 
     rule_alias: ($) => /[A-Za-z][A-Za-z0-9_]*/,
 
@@ -172,7 +172,7 @@ export default grammar({
         "code",
         "token_enum",
         "token_enum_integer",
-        "trace_writer",
+       "trace_writer",
         "syntax_error",
         "parse_accept",
         "parse_error_type",

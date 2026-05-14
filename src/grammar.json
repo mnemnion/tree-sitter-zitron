@@ -712,7 +712,7 @@
             "name": "terminal"
           },
           {
-            "type": "REPEAT",
+            "type": "REPEAT1",
             "content": {
               "type": "SEQ",
               "members": [
