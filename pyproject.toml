@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "tree-sitter-zitron"
 description = "A Tree-sitter grammar for the Zitron grammar dialect"
-version = "0.1.3"
+version = "0.1.6"
 keywords = ["incremental", "parsing", "tree-sitter", "zitron"]
 classifiers = [
   "Intended Audience :: Developers",

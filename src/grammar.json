@@ -529,11 +529,24 @@
         },
         {
           "type": "SYMBOL",
-          "name": "identifier"
+          "name": "_grammar_particle"
         },
         {
           "type": "SYMBOL",
           "name": "_directive_defn"
+        }
+      ]
+    },
+    "_grammar_particle": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "nonterminal"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "terminal"
         }
       ]
     },
@@ -551,17 +564,8 @@
         {
           "type": "REPEAT",
           "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "nonterminal"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "terminal"
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "_grammar_particle"
           }
         },
         {

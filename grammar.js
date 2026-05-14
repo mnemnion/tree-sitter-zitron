@@ -116,15 +116,12 @@ export default grammar({
       ),
 
     _arg_directive: ($) =>
-      seq("%", $.arg_directive_name, $.identifier, $._directive_defn),
+      seq("%", $.arg_directive_name, $._grammar_particle, $._directive_defn),
+
+    _grammar_particle: ($) => choice($.nonterminal, $.terminal),
 
     _token_directive: ($) =>
-      seq(
-        "%",
-        $.token_directive_name,
-        repeat(choice($.nonterminal, $.terminal)),
-        ".",
-      ),
+      seq("%", $.token_directive_name, repeat($._grammar_particle), "."),
 
     _token_class_directive: ($) =>
       seq(
@@ -172,7 +169,7 @@ export default grammar({
         "code",
         "token_enum",
         "token_enum_integer",
-       "trace_writer",
+        "trace_writer",
         "syntax_error",
         "parse_accept",
         "parse_error_type",
