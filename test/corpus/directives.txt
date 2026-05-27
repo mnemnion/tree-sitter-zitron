@@ -66,12 +66,12 @@ Type And Destructor Directives
 (source_file
   (directive
     (arg_directive_name)
-    (identifier)
+    (nonterminal)
     (code_block
       (zig_code)))
   (directive
     (arg_directive_name)
-    (identifier)
+    (nonterminal)
     (code_block
       (zig_code))))
 
@@ -118,11 +118,11 @@ Arg Directives With Identifier And String
 (source_file
   (directive
     (arg_directive_name)
-    (identifier)
+    (nonterminal)
     (identifier))
   (directive
     (arg_directive_name)
-    (identifier)
+    (nonterminal)
     (string)))
 
 ==================

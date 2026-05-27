@@ -107,8 +107,7 @@ atom(A) ::= SYMBOL(S).      @atom_symbol(A;S)
       (nonterminal)
       (rule_alias))
     (rhs
-      (multiterminal
-        (terminal))
+      (terminal)
       (rule_alias))
     (named_action
       (action_name)
@@ -116,8 +115,7 @@ atom(A) ::= SYMBOL(S).      @atom_symbol(A;S)
       (rule_alias)))
   (ditto_rule
     (rhs
-      (multiterminal
-        (terminal))
+      (terminal)
       (rule_alias))
     (named_action
       (action_name)
@@ -125,8 +123,7 @@ atom(A) ::= SYMBOL(S).      @atom_symbol(A;S)
       (rule_alias)))
   (ditto_rule
     (rhs
-      (multiterminal
-        (terminal))
+      (terminal)
       (rule_alias))
     (named_action
       (action_name)
@@ -219,8 +216,7 @@ term(A) ::= term(B) TIMES factor(C).  { A = B * C; }
     (rhs
       (nonterminal)
       (rule_alias)
-      (multiterminal
-        (terminal))
+      (terminal)
       (nonterminal)
       (rule_alias))
     (code_block
@@ -229,8 +225,7 @@ term(A) ::= term(B) TIMES factor(C).  { A = B * C; }
     (rhs
       (nonterminal)
       (rule_alias)
-      (multiterminal
-        (terminal))
+      (terminal)
       (nonterminal)
       (rule_alias))
     (code_block
