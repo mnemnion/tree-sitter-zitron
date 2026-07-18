@@ -1,7 +1,7 @@
 .{
     .name = .tree_sitter_zitron,
     .fingerprint = 0xbd3104644ccf0d10,
-    .version = "0.1.6",
+    .version = "0.1.7",
     .minimum_zig_version = "0.16.0",
     .dependencies = .{
         .tree_sitter = .{
