@@ -1,2 +1,2 @@
 %destructor node Token
-// ^ type
+// ^ attribute.builtin

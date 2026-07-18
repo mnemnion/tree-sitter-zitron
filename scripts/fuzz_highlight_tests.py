@@ -181,7 +181,7 @@ def make_directive_type(rng: random.Random) -> Candidate:
     text = "\n".join(
         [
             f"{directive} {ident} {type_name}",
-            "// ^ type",
+            "// ^ attribute.builtin",
             "//      ^ identifier",
         ]
     ) + "\n"
@@ -194,7 +194,7 @@ def make_number(rng: random.Random) -> Candidate:
     text = "\n".join(
         [
             f"%stack_size {size}",
-            "// ^ type",
+            "// ^ attribute.builtin",
             f"// {' ' * spaces}^ constant.numeric",
         ]
     ) + "\n"
@@ -212,7 +212,7 @@ def make_token_directive(rng: random.Random) -> Candidate:
     text = "\n".join(
         [
             line,
-            "// ^ type",
+            "// ^ attribute.builtin",
             "//      ^ constant",
             "//           ^ constant",
             f"// {' ' * delim_col}^ punctuation.delimiter",

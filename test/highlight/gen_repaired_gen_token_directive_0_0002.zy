@@ -1,2 +1,2 @@
 %nonassoc STAR SLASH.
-// ^ type
+// ^ attribute.builtin

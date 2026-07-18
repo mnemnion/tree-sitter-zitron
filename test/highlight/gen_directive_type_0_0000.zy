@@ -1,2 +1,2 @@
 %destructor node f64
-// ^ type
+// ^ attribute.builtin

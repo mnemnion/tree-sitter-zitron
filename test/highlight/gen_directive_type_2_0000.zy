@@ -1,2 +1,2 @@
 %type expr f64
-// ^ type
+// ^ attribute.builtin

@@ -1,5 +1,5 @@
 %left PLUS BAR.
-// ^ type
+// ^ attribute.builtin
 //      ^ constant
 //           ^ constant
 //            ^ punctuation.delimiter

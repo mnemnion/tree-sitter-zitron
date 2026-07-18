@@ -1,4 +1,4 @@
 %left BAZ SLASH.
-// ^ type
+// ^ attribute.builtin
 //      ^ constant
 //           ^ constant

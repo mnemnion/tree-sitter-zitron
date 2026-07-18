@@ -1,0 +1,22 @@
+%type expr PNum
+//         ^ type
+
+%name PikParser
+//      ^ type
+
+%token_type Token
+//          ^ type
+
+%default_type DefaultType
+//            ^ type
+
+%token_enum TokenKind
+//          ^ type
+
+%token_enum_integer TokenTag
+//                  ^ type
+
+%name "PikParser"
+//      ^ string.quoted.double
+
+%type expr {?*PObj}

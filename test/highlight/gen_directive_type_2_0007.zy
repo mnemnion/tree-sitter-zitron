@@ -1,2 +1,2 @@
 %destructor node u8
-// ^ type
+// ^ attribute.builtin

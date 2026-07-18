@@ -1,3 +1,3 @@
 %stack_size 12
-// ^ type
+// ^ attribute.builtin
 //           ^ constant.numeric

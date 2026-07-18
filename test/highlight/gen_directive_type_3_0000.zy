@@ -1,2 +1,2 @@
 %type term u8
-// ^ type
+// ^ attribute.builtin
