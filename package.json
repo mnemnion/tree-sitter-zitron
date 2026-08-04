@@ -1,6 +1,6 @@
 {
   "name": "tree-sitter-zitron",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "A Tree-sitter grammar for the Zitron grammar dialect",
   "type": "module",
   "repository": {
