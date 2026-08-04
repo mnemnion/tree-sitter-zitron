@@ -135,7 +135,7 @@ static const char * const ts_symbol_names[] = {
   [anon_sym_SEMI] = ";",
   [anon_sym_COMMA] = ",",
   [anon_sym_impl] = "impl_name",
-  [anon_sym_token_class] = "impl_name",
+  [anon_sym_token_class] = "arg_directive_name",
   [anon_sym_AMP_AMP] = "&&",
   [anon_sym_PIPE_PIPE] = "||",
   [anon_sym_BANG] = "!",
@@ -239,7 +239,7 @@ static const TSSymbol ts_symbol_map[] = {
   [anon_sym_SEMI] = anon_sym_SEMI,
   [anon_sym_COMMA] = anon_sym_COMMA,
   [anon_sym_impl] = anon_sym_impl,
-  [anon_sym_token_class] = anon_sym_impl,
+  [anon_sym_token_class] = sym_arg_directive_name,
   [anon_sym_AMP_AMP] = anon_sym_AMP_AMP,
   [anon_sym_PIPE_PIPE] = anon_sym_PIPE_PIPE,
   [anon_sym_BANG] = anon_sym_BANG,
@@ -4765,7 +4765,7 @@ TS_PUBLIC const TSLanguage *tree_sitter_zitron(void) {
     .metadata = {
       .major_version = 0,
       .minor_version = 1,
-      .patch_version = 6,
+      .patch_version = 7,
     },
   };
   return &language;

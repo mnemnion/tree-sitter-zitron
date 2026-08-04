@@ -126,7 +126,7 @@ export default grammar({
     _token_class_directive: ($) =>
       seq(
         "%",
-        alias("token_class", $.impl_name),
+        alias("token_class", $.arg_directive_name),
         $.nonterminal,
         $.multiterminal,
         ".",

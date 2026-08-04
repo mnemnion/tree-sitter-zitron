@@ -588,7 +588,7 @@
             "value": "token_class"
           },
           "named": true,
-          "value": "impl_name"
+          "value": "arg_directive_name"
         },
         {
           "type": "SYMBOL",
