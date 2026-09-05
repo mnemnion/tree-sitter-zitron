@@ -1,0 +1,103 @@
+==================
+String Terminals
+==================
+
+%token "{" "}" NUMBER "+" "*".
+%left "+".
+%fallback "name" "keyword".
+%wildcard "any".
+%token_class quote "\x22" "\\" "\t".
+%type "+" i32
+%destructor "+" {}
+
+start ::= "{" expr(A) "}".
+start ::= "("|LT ")"|GT.
+expr(A) ::= expr(B) "*" expr(C). ["*"] { A = B * C; }
+
+---
+
+(source_file
+  (directive
+    (token_directive_name)
+    (terminal
+      (string))
+    (terminal
+      (string))
+    (terminal)
+    (terminal
+      (string))
+    (terminal
+      (string)))
+  (directive
+    (token_directive_name)
+    (terminal
+      (string)))
+  (directive
+    (token_directive_name)
+    (terminal
+      (string))
+    (terminal
+      (string)))
+  (directive
+    (token_directive_name)
+    (terminal
+      (string)))
+  (directive
+    (arg_directive_name)
+    (nonterminal)
+    (multiterminal
+      (terminal
+        (string))
+      (terminal
+        (string))
+      (terminal
+        (string))))
+  (directive
+    (arg_directive_name)
+    (terminal
+      (string))
+    (identifier))
+  (directive
+    (arg_directive_name)
+    (terminal
+      (string))
+    (code_block
+      (zig_code)))
+  (grammar_rule
+    (lhs
+      (nonterminal))
+    (rhs
+      (terminal
+        (string))
+      (nonterminal)
+      (rule_alias)
+      (terminal
+        (string))))
+  (grammar_rule
+    (lhs
+      (nonterminal))
+    (rhs
+      (multiterminal
+        (terminal
+          (string))
+        (terminal))
+      (multiterminal
+        (terminal
+          (string))
+        (terminal))))
+  (grammar_rule
+    (lhs
+      (nonterminal)
+      (rule_alias))
+    (rhs
+      (nonterminal)
+      (rule_alias)
+      (terminal
+        (string))
+      (nonterminal)
+      (rule_alias))
+    (precedence_mark
+      (terminal
+        (string)))
+    (code_block
+      (zig_code))))

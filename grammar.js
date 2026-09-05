@@ -28,11 +28,19 @@ export default grammar({
         "::=",
         optional($.rhs),
         ".",
+        optional($.precedence_mark),
         optional($._action),
       ),
 
     ditto_rule: ($) =>
-      seq("``", optional("::="), optional($.rhs), ".", optional($._action)),
+      seq(
+        "``",
+        optional("::="),
+        optional($.rhs),
+        ".",
+        optional($.precedence_mark),
+        optional($._action),
+      ),
 
     directive: ($) =>
       choice(
@@ -86,6 +94,8 @@ export default grammar({
 
     _action: ($) => choice($.code_block, field("action_def", $.named_action)),
 
+    precedence_mark: ($) => seq("[", $.terminal, "]"),
+
     code_block: ($) => seq("{", $.zig_code, "}"),
 
     named_action: ($) => seq($.action_name, $._act_aliases),
@@ -128,8 +138,14 @@ export default grammar({
         "%",
         alias("token_class", $.arg_directive_name),
         $.nonterminal,
-        $.multiterminal,
+        alias($._token_class_members, $.multiterminal),
         ".",
+      ),
+
+    _token_class_members: ($) =>
+      seq(
+        $.terminal,
+        repeat(seq(optional(choice("|", "/")), $.terminal)),
       ),
 
     _macro_directive: ($) =>
@@ -141,7 +157,7 @@ export default grammar({
     _macro_element: ($) =>
       choice(
         alias($.nonterminal, $.macro_nonterminal),
-        alias($.terminal, $.macro_terminal),
+        alias($._terminal_name, $.macro_terminal),
         "&&",
         "||",
         "!",
@@ -149,7 +165,9 @@ export default grammar({
 
     nonterminal: ($) => /[a-z][a-zA-Z0-9_]*/,
 
-    terminal: ($) => /[A-Z][a-zA-Z0-9_]*/,
+    terminal: ($) => choice($._terminal_name, $.string),
+
+    _terminal_name: ($) => /[A-Z][a-zA-Z0-9_]*/,
 
     multiterminal: ($) =>
       prec.left(3, seq($.terminal, repeat1(seq(choice("|", "/"), $.terminal)))),
@@ -181,7 +199,6 @@ export default grammar({
         "default_type",
         "stack_size",
         "start_symbol",
-        "wildcard",
         "token_destructor",
         "default_destructor",
       ),
@@ -189,7 +206,7 @@ export default grammar({
     arg_directive_name: ($) => choice("type", "destructor"),
 
     token_directive_name: ($) =>
-      choice("left", "right", "nonassoc", "token", "fallback"),
+      choice("left", "right", "nonassoc", "token", "fallback", "wildcard"),
 
     macro_name: ($) => choice("if", "ifdef", "ifndef", "else", "endif"),
 
