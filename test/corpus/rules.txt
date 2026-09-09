@@ -20,6 +20,25 @@ edn(E) ::= forms(Fs).  @edn_forms(E;Fs)
       (rule_alias))))
 
 ==================
+Named Action With Only a Result Alias
+==================
+
+atom(A) ::= TRUE.  @named_action(A)
+
+---
+
+(source_file
+  (grammar_rule
+    (lhs
+      (nonterminal)
+      (rule_alias))
+    (rhs
+      (terminal))
+    (named_action
+      (action_name)
+      (rule_alias))))
+
+==================
 Recursive Grammar Rule
 ==================
 

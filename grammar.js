@@ -103,9 +103,9 @@ export default grammar({
     _act_aliases: ($) =>
       seq(
         "(",
+        optional($.rule_alias),
         optional(
           seq(
-            optional($.rule_alias),
             ";",
             optional($.rule_alias),
             optional(repeat(seq(",", $.rule_alias))),
