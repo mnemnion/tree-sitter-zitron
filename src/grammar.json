@@ -636,59 +636,12 @@
           "name": "nonterminal"
         },
         {
-          "type": "ALIAS",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_token_class_members"
-          },
-          "named": true,
-          "value": "multiterminal"
+          "type": "SYMBOL",
+          "name": "multiterminal"
         },
         {
           "type": "STRING",
           "value": "."
-        }
-      ]
-    },
-    "_token_class_members": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "terminal"
-        },
-        {
-          "type": "REPEAT",
-          "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "STRING",
-                        "value": "|"
-                      },
-                      {
-                        "type": "STRING",
-                        "value": "/"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "BLANK"
-                  }
-                ]
-              },
-              {
-                "type": "SYMBOL",
-                "name": "terminal"
-              }
-            ]
-          }
         }
       ]
     },
@@ -822,17 +775,8 @@
               "type": "SEQ",
               "members": [
                 {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "STRING",
-                      "value": "|"
-                    },
-                    {
-                      "type": "STRING",
-                      "value": "/"
-                    }
-                  ]
+                  "type": "STRING",
+                  "value": "|"
                 },
                 {
                   "type": "SYMBOL",

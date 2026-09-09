@@ -29,7 +29,7 @@
 (comment) @spell
 (string) @string.quoted.double
 (number) @constant.numeric
-["::=" "|" "/" "``" ] @operator
+["::=" "|" "``" ] @operator
 ["%"] @operator.directive
 [ "!" "&&" "||" ] @operator.boolean
 ["." ";" ","] @punctuation.delimiter

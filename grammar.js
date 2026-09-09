@@ -138,14 +138,8 @@ export default grammar({
         "%",
         alias("token_class", $.arg_directive_name),
         $.nonterminal,
-        alias($._token_class_members, $.multiterminal),
+        $.multiterminal,
         ".",
-      ),
-
-    _token_class_members: ($) =>
-      seq(
-        $.terminal,
-        repeat(seq(optional(choice("|", "/")), $.terminal)),
       ),
 
     _macro_directive: ($) =>
@@ -170,7 +164,7 @@ export default grammar({
     _terminal_name: ($) => /[A-Z][a-zA-Z0-9_]*/,
 
     multiterminal: ($) =>
-      prec.left(3, seq($.terminal, repeat1(seq(choice("|", "/"), $.terminal)))),
+      prec.left(3, seq($.terminal, repeat1(seq("|", $.terminal)))),
 
     rule_alias: ($) => /[A-Za-z][A-Za-z0-9_]*/,
 
