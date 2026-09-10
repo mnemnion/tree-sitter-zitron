@@ -954,7 +954,7 @@
     },
     "string": {
       "type": "PATTERN",
-      "value": "\"[^\\\"]*\""
+      "value": "\"([^\"\\\\]|\\\\[\\s\\S])*\""
     },
     "number": {
       "type": "PATTERN",

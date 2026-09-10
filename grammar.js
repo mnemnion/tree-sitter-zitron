@@ -204,7 +204,8 @@ export default grammar({
 
     macro_name: ($) => choice("if", "ifdef", "ifndef", "else", "endif"),
 
-    string: ($) => /"[^\"]*"/,
+    // Backslash skips any next character, including a newline.
+    string: ($) => /"([^"\\]|\\[\s\S])*"/,
 
     number: ($) => /\d+/,
 
