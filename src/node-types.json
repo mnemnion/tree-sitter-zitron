@@ -162,6 +162,10 @@
           "named": true
         },
         {
+          "type": "precedence_mark",
+          "named": true
+        },
+        {
           "type": "rhs",
           "named": true
         }
@@ -199,6 +203,10 @@
       "types": [
         {
           "type": "code_block",
+          "named": true
+        },
+        {
+          "type": "precedence_mark",
           "named": true
         },
         {
@@ -287,6 +295,21 @@
     }
   },
   {
+    "type": "precedence_mark",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "terminal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "rhs",
     "named": true,
     "fields": {
@@ -362,6 +385,21 @@
     }
   },
   {
+    "type": "terminal",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "token_directive_name",
     "named": true,
     "fields": {}
@@ -395,15 +433,19 @@
     "named": false
   },
   {
-    "type": "/",
-    "named": false
-  },
-  {
     "type": "::=",
     "named": false
   },
   {
     "type": ";",
+    "named": false
+  },
+  {
+    "type": "[",
+    "named": false
+  },
+  {
+    "type": "]",
     "named": false
   },
   {
@@ -538,10 +580,6 @@
   {
     "type": "syntax_error",
     "named": false
-  },
-  {
-    "type": "terminal",
-    "named": true
   },
   {
     "type": "token",

@@ -12,3 +12,13 @@ foo ::= bar(B) baz(C). @act(A;B,C)
 //      ^ definition.interface
 // TODO
 }
+
+%token "{" PLUS.
+//       ^ reference.enum
+//           ^ reference.enum
+
+start ::= "{" expr PLUS. ["+"]
+//          ^ reference.enum
+//              ^ reference.class
+//                   ^ reference.enum
+//                          ^ reference.enum

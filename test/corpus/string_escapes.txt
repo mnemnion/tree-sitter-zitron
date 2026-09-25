@@ -1,0 +1,57 @@
+==================
+Escaped Quotes And Backslashes
+==================
+
+%token "\"" "\\" "\\\"" "\\\\" "\q" "\t" "\x22" "".
+start ::= "say \"hello\"" AFTER.
+%name "A \"quoted\" name"
+
+---
+
+(source_file
+  (directive
+    (token_directive_name)
+    (terminal (string))
+    (terminal (string))
+    (terminal (string))
+    (terminal (string))
+    (terminal (string))
+    (terminal (string))
+    (terminal (string))
+    (terminal (string)))
+  (grammar_rule
+    (lhs (nonterminal))
+    (rhs
+      (terminal (string))
+      (terminal)))
+  (directive
+    (directive_name)
+    (string)))
+
+==================
+Embedded And Escaped Newlines
+==================
+
+%include "first
+second"
+%code "first\
+second"
+start ::= "first
+second" "first\
+second" AFTER.
+
+---
+
+(source_file
+  (directive
+    (directive_name)
+    (string))
+  (directive
+    (directive_name)
+    (string))
+  (grammar_rule
+    (lhs (nonterminal))
+    (rhs
+      (terminal (string))
+      (terminal (string))
+      (terminal))))

@@ -1,0 +1,15 @@
+%token "{" PLUS.
+//       ^ string.quoted.double
+//           ^ constant
+
+start ::= "{" expr "}".
+//          ^ string.quoted.double
+//              ^ identifier
+//                   ^ string.quoted.double
+
+expr ::= expr "+" term. ["+"]
+//             ^ string.quoted.double
+//                       ^ string.quoted.double
+
+%name "Parser"
+//      ^ string.quoted.double

@@ -28,11 +28,19 @@ export default grammar({
         "::=",
         optional($.rhs),
         ".",
+        optional($.precedence_mark),
         optional($._action),
       ),
 
     ditto_rule: ($) =>
-      seq("``", optional("::="), optional($.rhs), ".", optional($._action)),
+      seq(
+        "``",
+        optional("::="),
+        optional($.rhs),
+        ".",
+        optional($.precedence_mark),
+        optional($._action),
+      ),
 
     directive: ($) =>
       choice(
@@ -86,6 +94,8 @@ export default grammar({
 
     _action: ($) => choice($.code_block, field("action_def", $.named_action)),
 
+    precedence_mark: ($) => seq("[", $.terminal, "]"),
+
     code_block: ($) => seq("{", $.zig_code, "}"),
 
     named_action: ($) => seq($.action_name, $._act_aliases),
@@ -93,9 +103,9 @@ export default grammar({
     _act_aliases: ($) =>
       seq(
         "(",
+        optional($.rule_alias),
         optional(
           seq(
-            optional($.rule_alias),
             ";",
             optional($.rule_alias),
             optional(repeat(seq(",", $.rule_alias))),
@@ -141,7 +151,7 @@ export default grammar({
     _macro_element: ($) =>
       choice(
         alias($.nonterminal, $.macro_nonterminal),
-        alias($.terminal, $.macro_terminal),
+        alias($._terminal_name, $.macro_terminal),
         "&&",
         "||",
         "!",
@@ -149,10 +159,12 @@ export default grammar({
 
     nonterminal: ($) => /[a-z][a-zA-Z0-9_]*/,
 
-    terminal: ($) => /[A-Z][a-zA-Z0-9_]*/,
+    terminal: ($) => choice($._terminal_name, $.string),
+
+    _terminal_name: ($) => /[A-Z][a-zA-Z0-9_]*/,
 
     multiterminal: ($) =>
-      prec.left(3, seq($.terminal, repeat1(seq(choice("|", "/"), $.terminal)))),
+      prec.left(3, seq($.terminal, repeat1(seq("|", $.terminal)))),
 
     rule_alias: ($) => /[A-Za-z][A-Za-z0-9_]*/,
 
@@ -181,7 +193,6 @@ export default grammar({
         "default_type",
         "stack_size",
         "start_symbol",
-        "wildcard",
         "token_destructor",
         "default_destructor",
       ),
@@ -189,11 +200,12 @@ export default grammar({
     arg_directive_name: ($) => choice("type", "destructor"),
 
     token_directive_name: ($) =>
-      choice("left", "right", "nonassoc", "token", "fallback"),
+      choice("left", "right", "nonassoc", "token", "fallback", "wildcard"),
 
     macro_name: ($) => choice("if", "ifdef", "ifndef", "else", "endif"),
 
-    string: ($) => /"[^\"]*"/,
+    // Backslash skips any next character, including a newline.
+    string: ($) => /"([^"\\]|\\[\s\S])*"/,
 
     number: ($) => /\d+/,
 

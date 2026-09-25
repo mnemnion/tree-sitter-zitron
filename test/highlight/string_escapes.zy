@@ -1,0 +1,46 @@
+%token "\"" "\\" "\\\"" "\q" AFTER.
+//     ^ string.quoted.double
+//      ^ string.quoted.double
+//       ^ string.quoted.double
+//        ^ string.quoted.double
+//          ^ string.quoted.double
+//            ^ string.quoted.double
+//             ^ string.quoted.double
+//               ^ string.quoted.double
+//                  ^ string.quoted.double
+//                   ^ string.quoted.double
+//                    ^ string.quoted.double
+//                      ^ string.quoted.double
+//                        ^ string.quoted.double
+//                         ^ string.quoted.double
+//                           ^ constant
+//                                ^ punctuation.delimiter
+
+%name "say \"hello\""
+//          ^ string.quoted.double
+//             ^ string.quoted.double
+//                 ^ string.quoted.double
+
+%include "first
+second
+third"
+// <- string.quoted.double
+%name Next
+//    ^ type
+
+%code "first\
+second\
+third"
+// <- string.quoted.double
+%name Next
+//    ^ type
+
+start ::= "first
+second" AFTER.
+// <- string.quoted.double
+//       ^ constant
+
+start ::= "third\
+fourth" AFTER.
+// <- string.quoted.double
+//       ^ constant
