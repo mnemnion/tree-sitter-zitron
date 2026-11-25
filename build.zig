@@ -34,7 +34,7 @@ pub fn build(b: *std.Build) !void {
     if (reuse_alloc) {
         lib.root_module.addCMacro("TREE_SITTER_REUSE_ALLOCATOR", "");
     }
-    if (optimize == .Debug) {
+    if (optimize == .debug) {
         lib.root_module.addCMacro("TREE_SITTER_DEBUG", "");
     }
 
@@ -79,7 +79,8 @@ pub fn build(b: *std.Build) !void {
 
 inline fn fileExists(b: *std.Build, filename: []const u8) bool {
     const io = b.graph.io;
-    const dir = b.build_root.handle;
+    b.dependOnDirectoryContents(b.path(std.fs.path.dirname(filename) orelse "."));
+    const dir = b.root;
     dir.access(io, filename, .{}) catch return false;
     return true;
 }
