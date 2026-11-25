@@ -59,22 +59,17 @@ pub fn build(b: *std.Build) !void {
     });
     module.linkLibrary(lib);
 
-    const tests = b.addTest(.{
-        .root_module = b.createModule(.{
-            .root_source_file = b.path("bindings/zig/test.zig"),
-            .target = target,
-            .optimize = optimize,
-        }),
-    });
-    tests.root_module.addImport(library_name, module);
-
-    if (b.lazyDependency("tree_sitter", .{})) |ts_dep| {
-        tests.root_module.addImport("tree_sitter", ts_dep.module("tree_sitter"));
-    }
-
-    const run_tests = b.addRunArtifact(tests);
-    const test_step = b.step("test", "Run unit tests");
-    test_step.dependOn(&run_tests.step);
+    const run_tests = std.Build.Step.Run.create(b, "grammar tests");
+    run_tests.addFileArg2(.zig_exe, .{});
+    run_tests.addArgs(&.{ "build", "test" });
+    run_tests.setCwd(b.path("tests"));
+    run_tests.addArg(b.fmt("-Doptimize={s}", .{@tagName(optimize)}));
+    run_tests.addArg(b.fmt("-Dtarget={s}", .{target.query.zigTriple(b.allocator) catch @panic("OOM")}));
+    run_tests.addArg(b.fmt("-Dcpu={s}", .{target.query.serializeCpuAlloc(b.allocator) catch @panic("OOM")}));
+    run_tests.addArg(b.fmt("-Dbuild-shared={}", .{shared}));
+    run_tests.addArg(b.fmt("-Dreuse-allocator={}", .{reuse_alloc}));
+    run_tests.has_side_effects = true;
+    b.step("test", "Run unit tests").dependOn(&run_tests.step);
 }
 
 inline fn fileExists(b: *std.Build, filename: []const u8) bool {

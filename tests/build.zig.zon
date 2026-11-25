@@ -1,0 +1,11 @@
+.{
+    .name = .tree_sitter_zitron_tests,
+    .fingerprint = 0x7bac09c983dc66e6,
+    .version = "0.0.0",
+    .minimum_zig_version = "0.17.1",
+    .dependencies = .{
+        .grammar = .{ .path = "../../tree-sitter-zitron" },
+        .tree_sitter = .{ .path = "../../../z/zig-tree-sitter" },
+    },
+    .paths = .{ "build.zig", "build.zig.zon" },
+}
